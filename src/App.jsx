@@ -1,33 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/*
+Consegna:
+Implementare un sistema di filtro per una lista di film in base al genere.
+Il filtro deve funzionare dinamicamente quando l'utente seleziona un genere dalla select.
+Se non viene selezionato alcun genere, devono essere mostrati tutti i film.
+*/
+
+import { useState, useEffect } from 'react'
+import movies from '../data/movies'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const genresList = movies.map(movie => movie.genre).filter((value, index, self) => self.indexOf(value) === index);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="container mt-3">
+        <h1 className='text-center'>
+          Pick your movie!
+        </h1>
+        <select className="form-select mt-3" aria-label="Movies">
+          <option selected>
+            Select the movie's genre
+          </option>
+          {
+            genresList.map((value, index) => (
+              <option key={index} value={value}>
+                {value}
+              </option>
+            ))
+          }
+        </select>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
