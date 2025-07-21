@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react'
 import movies from '../data/movies'
 
 function App() {
-  const genresList = movies.map(movie => movie.genre).filter((value, index, self) => self.indexOf(value) === index);
+  const genresList = movies.map(movie => movie.genre).filter((genre, index, self) => self.indexOf(genre) === index);
 
   return (
     <>
@@ -22,13 +22,24 @@ function App() {
             Select the movie's genre
           </option>
           {
-            genresList.map((value, index) => (
-              <option key={index} value={value}>
-                {value}
+            genresList.map((genre, index) => (
+              <option key={index} value={genre}>
+                {genre}
               </option>
             ))
           }
         </select>
+        <ul className="list-group mt-4">
+          {
+            movies.map((movie) => {
+              return (
+                <li key={movie.id} className="list-group-item">
+                  {movie.title}
+                </li>
+              )
+            })
+          }
+        </ul>
       </div>
     </>
   )
